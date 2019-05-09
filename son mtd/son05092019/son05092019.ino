@@ -1,7 +1,41 @@
-s
+#define SensorSol 10  
+#define SensorOrta 11
+#define SensorSag 12
+
+#define MotorR1 6
+#define MotorR2 7 // Sensör ve Motorların Arduino'ya bağladığımız pinlerini tanımlıyoruz.
+#define MotorRE 9
+
+#define MotorL1 4
+#define MotorL2 5
+#define MotorLE 3
+
+
+//sensor
+#define echoPin 33
+#define trigPin 32
+#define buzzerPin 30
+#define yakinlikVcc 31
+
+//bluetooth
+#define echoPin 33
+#define trigPin 32
+#define buzzerPin 30
+#define yakinlikVcc 31
+
+long duration, distance;
+
+int maximumRange = 7;
+int minimumRange = 0;
+int yakinlik;
+int boole=0;
+char veri; 
 
 void setup() {
 
+  
+
+  Serial.begin(9600);
   pinMode(SensorSol, INPUT);
   pinMode(SensorOrta, INPUT);
   pinMode(SensorSag, INPUT);
@@ -17,24 +51,52 @@ void setup() {
   pinMode(buzzerPin, OUTPUT);
   pinMode(yakinlikVcc, OUTPUT);
 
-
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(yakinlikVcc, OUTPUT);
+  pinMode(8,OUTPUT);
 }
 
 void loop() {
-    digitalWrite(yakinlikVcc,HIGH);
-  
+   digitalWrite(8,HIGH);
+          digitalWrite(yakinlikVcc,HIGH);
+   digitalWrite(yakinlikVcc,HIGH);
+   digitalWrite(8,HIGH);
+   digitalWrite(trigPin,LOW);
+   delayMicroseconds(3);
+   digitalWrite(trigPin, HIGH);
+   delayMicroseconds(10);
+   digitalWrite(trigPin, LOW);
+   digitalWrite(8,HIGH);
+   duration = pulseIn(echoPin, HIGH);
+   distance=duration/29.1/2;
+  if(Serial.available()>0){         //Seri haberleşmeden veri gelmesini bekliyoruz.
+      veri = Serial.read();           //Seri haberleşmeden gelen veriyi okuyoruz.
+      Serial.println(veri);
+    }
+  if(veri=='f'){  // Orta sensör çizgiyi gördüğünde robot ileri gitsin.
+    ileri();
+  }if(veri=='l'){  // Sağ sensör çizgiyi gördüğünde robot sağa dönsün.
+    sag();
+  }
+  if(veri=='r'){  // Sol sensör çizgiyi gördüğünde robot sola dönsün.
+    sol();
+  }
+  if(veri=='b'){  // Sol sensör çizgiyi gördüğünde robot sola dönsün.
+    geri();
+  }
+  if(veri=='s'){
+    dur();
+  }  if(veri=='a'){
+      if(Serial.available()>0){         //Seri haberleşmeden veri gelmesini bekliyoruz.
+      veri = Serial.read();           //Seri haberleşmeden gelen veriyi okuyoruz.
+      Serial.println(veri);
+    }
+       digitalWrite(8,HIGH);
+          digitalWrite(yakinlikVcc,HIGH);
 
-  digitalWrite(trigPin,LOW);
-  delayMicroseconds(3);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  
-
-  duration = pulseIn(echoPin, HIGH);
-  distance=duration/29.1/2;
-  if(distance>10){
-      
+       if(distance>10){
         if(digitalRead(SensorSol) == 0 && digitalRead(SensorOrta) == 1 && digitalRead(SensorSag) == 0){  // Orta sensör çizgiyi gördüğünde robot ileri gitsin.
             ileri();
         }
@@ -58,7 +120,7 @@ void loop() {
   }else if(distance<=10){
     dur();
   }
-     
+  }
   
 
 
