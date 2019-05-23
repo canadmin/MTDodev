@@ -117,24 +117,24 @@ void loop() {
         if(digitalRead(SensorSol) == 0 && digitalRead(SensorOrta) == 1 && digitalRead(SensorSag) == 0){  // Orta sensör çizgiyi gördüğünde robot ileri gitsin.
             ileri();
         }
-        else if(digitalRead(SensorSol) == 1 && digitalRead(SensorOrta) == 1 && digitalRead(SensorSag) == 1){  // Orta sensör çizgiyi gördüğünde robot ileri gitsin.
+        if(digitalRead(SensorSol) == 1 && digitalRead(SensorOrta) == 1 && digitalRead(SensorSag) == 1){  // Orta sensör çizgiyi gördüğünde robot ileri gitsin.
             ileri();  
         }
-        else if(digitalRead(SensorSol) == 0 && digitalRead(SensorOrta) == 0 && digitalRead(SensorSag) == 1){  // Sağ sensör çizgiyi gördüğünde robot sağa dönsün.
+      if(digitalRead(SensorSol) == 0 && digitalRead(SensorOrta) == 0 && digitalRead(SensorSag) == 1){  // Sağ sensör çizgiyi gördüğünde robot sağa dönsün.
         sag();
         }
-      else if(digitalRead(SensorSol) == 1 && digitalRead(SensorOrta) == 0 && digitalRead(SensorSag) == 0){  // Sol sensör çizgiyi gördüğünde robot sola dönsün.
+        if(digitalRead(SensorSol) == 1 && digitalRead(SensorOrta) == 0 && digitalRead(SensorSag) == 0){  // Sol sensör çizgiyi gördüğünde robot sola dönsün.
         sol();
       }
-        else if(digitalRead(SensorSol) == 0 && digitalRead(SensorOrta) == 1 && digitalRead(SensorSag) == 1){  // Sağ sensör çizgiyi gördüğünde robot sağa dönsün.
+        if(digitalRead(SensorSol) == 0 && digitalRead(SensorOrta) == 1 && digitalRead(SensorSag) == 1){  // Sağ sensör çizgiyi gördüğünde robot sağa dönsün.
         sag();
-      } else if(digitalRead(SensorSol) == 1 && digitalRead(SensorOrta) == 0 && digitalRead(SensorSag) == 1){  // Sağ sensör çizgiyi gördüğünde robot sağa dönsün.
+      }  if(digitalRead(SensorSol) == 1 && digitalRead(SensorOrta) == 0 && digitalRead(SensorSag) == 1){  // Sağ sensör çizgiyi gördüğünde robot sağa dönsün.
         sol();
       }
      
-      else if(digitalRead(SensorSol) == 1 && digitalRead(SensorOrta) == 1 && digitalRead(SensorSag) == 0){  //
+      if(digitalRead(SensorSol) == 1 && digitalRead(SensorOrta) == 1 && digitalRead(SensorSag) == 0){  //
         sol();
-      }else if(digitalRead(SensorSol) == 0 && digitalRead(SensorOrta) == 0 && digitalRead(SensorSag) == 0){  // araba çizginin dışına çıktığında geri dönsün
+      }if(digitalRead(SensorSol) == 0 && digitalRead(SensorOrta) == 0 && digitalRead(SensorSag) == 0){  // araba çizginin dışına çıktığında geri dönsün
 
           ileri();
      
@@ -165,10 +165,10 @@ void ileri(){  // Robotun ileri yönde hareketi için fonksiyon tanımlıyoruz.
 
   digitalWrite(MotorR1, HIGH); // Sağ motorun ileri hareketi aktif
   digitalWrite(MotorR2, LOW); // Sağ motorun geri hareketi pasif
-  analogWrite(MotorRE, 120); // Sağ motorun hızı 150
+  analogWrite(MotorRE, 100); // Sağ motorun hızı 110
   digitalWrite(MotorL1, HIGH); // Sol motorun ileri hareketi aktif
   digitalWrite(MotorL2, LOW); // Sol motorun geri hareketi pasif
-  analogWrite(MotorLE, 107); // Sol motorun hızı 1501 
+  analogWrite(MotorLE, 94); // Sol motorun hızı 104
 }
 
 
@@ -197,14 +197,14 @@ void sol(){ // Robotun sağa dönme hareketi için fonksiyon tanımlıyoruz.
   analogWrite(MotorRE, 0); // Sağ motorun hızı 0 (Motor duruyor)
   digitalWrite(MotorL1, HIGH); // Sol motorun ileri hareketi aktif
   digitalWrite(MotorL2, LOW); // Sol motorun geri hareketi pasif
-  analogWrite(MotorLE, 120); // Sol motorun hızı 150
+  analogWrite(MotorLE, 107); // Sol motorun hızı 130
 }
 
 void sag(){ // Robotun sola dönme hareketi için fonksiyon tanımlıyoruz.
 
   digitalWrite(MotorR1, HIGH); // Sağ motorun ileri hareketi aktif
   digitalWrite(MotorR2, LOW); // Sağ motorun geri hareketi pasif
-  analogWrite(MotorRE, 120); // Sağ motorun hızı 150
+  analogWrite(MotorRE, 107); // Sağ motorun hızı 130
 
   digitalWrite(MotorL1, HIGH); // Sol motorun ileri hareketi aktif
   digitalWrite(MotorL2, LOW); // Sol motorun geri hareketi pasif
@@ -227,6 +227,3 @@ void baslangicMelodisi(){
   noTone(buzzerPin);
   delay(500);
 }
-
-
-  
